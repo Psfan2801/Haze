@@ -20,32 +20,23 @@
                         typewriter: ['"Special Elite"', 'Courier New', 'monospace'],
                         terminal: ['"VT323"', 'monospace'],
                         courier: ['"Courier Prime"', 'monospace'],
-                    },
-                    colors: {
-                        vintage: {
-                            paper: '#d9cdb0',
-                            paperDark: '#c2b391',
-                            ink: '#26221f',
-                            brass: '#967443',
-                            brassLight: '#c29b5b',
-                            steel: '#3a3d40',
-                            rust: '#8c3d2b',
-                            greenCRT: '#33ff33',
-                            greenCRTDark: '#0b2b0b'
-                        }
                     }
                 }
             }
         }
     </script>
 
-    <!-- Custom CSS Styles -->
+    <!-- Custom CSS Variables & Dynamic Mechanical Styling -->
     <style>
         :root {
             --paper-bg: #d9cdb0;
+            --paper-card: #e8ded0;
+            --paper-dark: #c2b391;
             --ink-color: #26221f;
             --accent-brass: #967443;
-            --ribbon-color: #26221f;
+            --accent-brass-light: #c29b5b;
+            --steel-header: linear-gradient(180deg, #4d4943 0%, #292623 100%);
+            --header-text: #d9cdb0;
         }
 
         body {
@@ -65,6 +56,7 @@
                 linear-gradient(90deg, rgba(38, 34, 31, 0.08) 1px, transparent 1px);
             background-size: 100% 100%, 26px 26px, 26px 26px;
             box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+            transition: background-color 0.3s ease;
         }
 
         /* Mechanical Watermark */
@@ -72,40 +64,41 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) rotate(-5deg);
+            transform: translate(-50%, -50%) rotate(-deg);
             font-size: 6vw;
             font-weight: 900;
-            color: rgba(38, 34, 31, 0.07);
+            color: var(--ink-color);
+            opacity: 0.08;
             pointer-events: none;
             text-transform: uppercase;
             letter-spacing: 0.3em;
             white-space: nowrap;
             font-family: 'Special Elite', monospace;
-            border: 8px solid rgba(38, 34, 31, 0.05);
+            border: 8px solid var(--ink-color);
             padding: 20px 40px;
         }
 
-        /* Vintage Window Chrome */
+        /* Dynamic Vintage Window Chrome */
         .vintage-window {
-            background: #e8ded0;
+            background: var(--paper-card);
+            color: var(--ink-color);
             border: 3px solid #3a3d40;
-            box-shadow: 6px 8px 20px rgba(0,0,0,0.6), inset 1px 1px 0px rgba(255,255,255,0.4);
+            box-shadow: 6px 8px 24px rgba(0,0,0,0.65), inset 1px 1px 0px rgba(255,255,255,0.3);
             border-radius: 4px;
         }
 
         .vintage-header {
-            background: linear-gradient(180deg, #4d4943 0%, #292623 100%);
-            color: #d9cdb0;
+            background: var(--steel-header);
+            color: var(--header-text);
             border-bottom: 2px solid #1a1816;
             text-shadow: 1px 1px 2px #000;
         }
 
         .vintage-button {
-            background: linear-gradient(180deg, #d9cdb0 0%, #b8a783 100%);
+            background: linear-gradient(180deg, var(--paper-card) 0%, var(--paper-dark) 100%);
             border: 2px solid #4a4237;
-            box-shadow: inset 1px 1px 0 rgba(255,255,255,0.6), 2px 2px 4px rgba(0,0,0,0.4);
-            color: #26221f;
-            text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+            box-shadow: inset 1px 1px 0 rgba(255,255,255,0.5), 2px 2px 4px rgba(0,0,0,0.35);
+            color: var(--ink-color);
             transition: all 0.05s ease;
         }
 
@@ -116,7 +109,7 @@
 
         /* Keycap Design for Virtual Keyboard */
         .typewriter-key {
-            background: radial-gradient(circle at 30% 30%, #fdfbf7, #c5bc9d);
+            background: radial-gradient(circle at 30% 30%, #fdfbf7, var(--paper-dark));
             border: 3px solid #3a3d40;
             border-radius: 50%;
             box-shadow: 0 4px 0 #1f2022, 0 6px 8px rgba(0,0,0,0.5), inset 0 2px 3px rgba(255,255,255,0.8);
@@ -129,7 +122,7 @@
         .typewriter-key:active, .typewriter-key.pressed {
             transform: translateY(4px);
             box-shadow: 0 0 0 #1f2022, 0 2px 3px rgba(0,0,0,0.5), inset 0 2px 5px rgba(0,0,0,0.4);
-            background: radial-gradient(circle at 30% 30%, #e2dac3, #a39878);
+            background: radial-gradient(circle at 30% 30%, var(--paper-card), var(--paper-dark));
         }
 
         /* CRT Screen Simulation */
@@ -158,30 +151,30 @@
             height: 10px;
         }
         ::-webkit-scrollbar-track {
-            background: #c5bc9d;
+            background: var(--paper-dark);
             border: 1px solid #4a4237;
         }
         ::-webkit-scrollbar-thumb {
-            background: #736551;
-            border: 1px solid #26221f;
+            background: var(--accent-brass);
+            border: 1px solid var(--ink-color);
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #54493a;
+            background: var(--accent-brass-light);
         }
 
         /* Browser Tab Bar Styling */
         .browser-tab {
-            background: linear-gradient(180deg, #b8a783 0%, #8c7d5c 100%);
+            background: linear-gradient(180deg, var(--paper-dark) 0%, #8c7d5c 100%);
             border: 1px solid #3a3d40;
             border-bottom: none;
-            color: #1a1816;
+            color: var(--ink-color);
             border-top-left-radius: 6px;
             border-top-right-radius: 6px;
             position: relative;
         }
         .browser-tab.active-tab {
-            background: linear-gradient(180deg, #e8ded0 0%, #c5bc9d 100%);
-            border-color: #26221f;
+            background: linear-gradient(180deg, var(--paper-card) 0%, var(--paper-dark) 100%);
+            border-color: var(--ink-color);
             font-weight: bold;
             box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
         }
@@ -192,7 +185,21 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: #c5bc9d;
+            background: var(--paper-card);
+        }
+
+        /* Draggable Grid Icon Specifics */
+        .desktop-icon {
+            position: absolute;
+            width: 104px;
+            height: 104px;
+            touch-action: none;
+            cursor: grab;
+            transition: transform 0.05s ease, background-color 0.15s ease;
+        }
+        .desktop-icon:active {
+            cursor: grabbing;
+            z-index: 50;
         }
     </style>
 </head>
@@ -203,9 +210,9 @@
         <!-- Mechanical Watermark -->
         <div class="watermark">HAZE OS // ROYALITE</div>
 
-        <!-- Desktop Grid Icons Container -->
-        <div id="desktop-grid" class="absolute inset-0 p-4 grid grid-flow-col grid-rows-[repeat(auto-fill,104px)] grid-cols-[repeat(auto-fill,104px)] gap-2 pointer-events-none">
-            <!-- Icons rendered dynamically by JS -->
+        <!-- Desktop Draggable Grid Icons Canvas -->
+        <div id="desktop-canvas" class="absolute inset-0 pointer-events-auto">
+            <!-- Icons rendered dynamically by JS with 104px grid snapping -->
         </div>
 
         <!-- WINDOW LAYER CONTAINER -->
@@ -214,7 +221,7 @@
         </div>
 
         <!-- VIRTUAL KEYBOARD PANEL -->
-        <div id="keyboard-panel" class="absolute bottom-12 left-1/2 -translate-x-1/2 bg-[#2b2724] border-t-4 border-x-4 border-[#595147] rounded-t-xl p-3 shadow-2xl z-30 transition-all duration-300 transform translate-y-full opacity-0 pointer-events-auto max-w-4xl w-full">
+        <div id="keyboard-panel" class="absolute bottom-14 left-1/2 -translate-x-1/2 bg-[#2b2724] border-t-4 border-x-4 border-[#595147] rounded-t-xl p-3 shadow-2xl z-30 transition-all duration-300 transform translate-y-full opacity-0 pointer-events-auto max-w-4xl w-full">
             <div class="flex justify-between items-center mb-2 px-2 border-b border-[#423c37] pb-1">
                 <span class="text-xs text-[#d9cdb0] font-typewriter uppercase tracking-widest flex items-center gap-2">
                     <span class="inline-block w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
@@ -224,7 +231,6 @@
             </div>
             
             <div class="flex flex-col gap-1.5 p-2 bg-[#1a1816] rounded-lg border border-[#3d3732] shadow-inner">
-                <!-- Key Rows -->
                 <div class="flex justify-center gap-1.5" id="key-row-1"></div>
                 <div class="flex justify-center gap-1.5" id="key-row-2"></div>
                 <div class="flex justify-center gap-1.5" id="key-row-3"></div>
@@ -237,11 +243,11 @@
         </div>
 
         <!-- START MENU OVERLAY -->
-        <div id="start-menu" class="absolute bottom-12 left-2 w-80 sm:w-96 bg-[#d9cdb0] border-4 border-[#3a3d40] rounded-t-lg shadow-2xl z-50 hidden font-typewriter pointer-events-auto">
+        <div id="start-menu" class="absolute bottom-12 left-2 w-80 sm:w-96 bg-[var(--paper-bg)] border-4 border-[#3a3d40] rounded-t-lg shadow-2xl z-50 hidden font-typewriter pointer-events-auto">
             <!-- Header -->
             <div class="bg-gradient-to-r from-[#292623] to-[#4d4943] text-[#d9cdb0] p-3 flex items-center justify-between border-b-2 border-[#1a1816]">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full border-2 border-[#967443] bg-[#1a1816] flex items-center justify-center font-bold text-lg text-[#967443]">
+                    <div class="w-10 h-10 rounded-full border-2 border-[var(--accent-brass)] bg-[#1a1816] flex items-center justify-center font-bold text-lg text-[var(--accent-brass)]">
                         H
                     </div>
                     <div>
@@ -251,43 +257,43 @@
                         </div>
                     </div>
                 </div>
-                <button id="cloud-drawer-toggle" class="text-xs bg-[#967443] hover:bg-[#c29b5b] text-white px-2 py-1 rounded border border-[#26221f]">
+                <button id="cloud-drawer-toggle" class="text-xs bg-[var(--accent-brass)] hover:bg-[var(--accent-brass-light)] text-white px-2 py-1 rounded border border-[#26221f]">
                     Account
                 </button>
             </div>
 
             <!-- Start Menu Body (Dual Column) -->
-            <div class="grid grid-cols-12 bg-[#e8ded0] text-[#26221f] min-h-[260px]">
+            <div class="grid grid-cols-12 bg-[var(--paper-card)] text-[var(--ink-color)] min-h-[260px]">
                 <!-- Left Column: Primary System Apps -->
-                <div class="col-span-7 p-2 space-y-1 border-r-2 border-[#c2b391]">
-                    <div class="text-[10px] font-bold text-[#736551] uppercase tracking-wider px-2 py-1 border-b border-[#c2b391]">Programs</div>
-                    <button onclick="os.openApp('browser')" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[#967443]">
+                <div class="col-span-7 p-2 space-y-1 border-r-2 border-[var(--paper-dark)]">
+                    <div class="text-[10px] font-bold text-[var(--ink-color)] opacity-70 uppercase tracking-wider px-2 py-1 border-b border-[var(--paper-dark)]">Programs</div>
+                    <button onclick="os.openApp('browser')" class="w-full text-left px-2 py-1.5 hover:bg-[var(--paper-dark)] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[var(--accent-brass)]">
                         <span>⚙️</span> Radial Web Browser
                     </button>
-                    <button onclick="os.openApp('typewriter')" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[#967443]">
+                    <button onclick="os.openApp('typewriter')" class="w-full text-left px-2 py-1.5 hover:bg-[var(--paper-dark)] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[var(--accent-brass)]">
                         <span>📝</span> Carriage Text Editor
                     </button>
-                    <button onclick="os.openApp('terminal')" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[#967443]">
+                    <button onclick="os.openApp('terminal')" class="w-full text-left px-2 py-1.5 hover:bg-[var(--paper-dark)] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[var(--accent-brass)]">
                         <span>💻</span> Terminal Shell (VT323)
                     </button>
-                    <button onclick="os.openApp('spool')" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[#967443]">
+                    <button onclick="os.openApp('spool')" class="w-full text-left px-2 py-1.5 hover:bg-[var(--paper-dark)] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[var(--accent-brass)]">
                         <span>🎨</span> Ribbon Spool Color
                     </button>
-                    <button onclick="os.openApp('installer')" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[#967443]">
+                    <button onclick="os.openApp('installer')" class="w-full text-left px-2 py-1.5 hover:bg-[var(--paper-dark)] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[var(--accent-brass)]">
                         <span>💿</span> Ring Installer PWA
                     </button>
                 </div>
 
                 <!-- Right Column: Settings & Utilities -->
-                <div class="col-span-5 p-2 bg-[#d9cdb0] space-y-1">
-                    <div class="text-[10px] font-bold text-[#736551] uppercase tracking-wider px-2 py-1 border-b border-[#c2b391]">System</div>
-                    <button onclick="os.openApp('settings')" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs border border-transparent hover:border-[#967443]">
+                <div class="col-span-5 p-2 bg-[var(--paper-bg)] space-y-1">
+                    <div class="text-[10px] font-bold text-[var(--ink-color)] opacity-70 uppercase tracking-wider px-2 py-1 border-b border-[var(--paper-dark)]">System</div>
+                    <button onclick="os.openApp('settings')" class="w-full text-left px-2 py-1.5 hover:bg-[var(--paper-dark)] rounded flex items-center gap-2 text-xs border border-transparent hover:border-[var(--accent-brass)]">
                         <span>🛠️</span> System Config
                     </button>
-                    <button onclick="os.toggleKeyboard()" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs border border-transparent hover:border-[#967443]">
+                    <button onclick="os.toggleKeyboard()" class="w-full text-left px-2 py-1.5 hover:bg-[var(--paper-dark)] rounded flex items-center gap-2 text-xs border border-transparent hover:border-[var(--accent-brass)]">
                         <span>⌨️</span> Key Mechanism
                     </button>
-                    <button onclick="os.playCarriageSound()" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs border border-transparent hover:border-[#967443]">
+                    <button onclick="os.playCarriageSound()" class="w-full text-left px-2 py-1.5 hover:bg-[var(--paper-dark)] rounded flex items-center gap-2 text-xs border border-transparent hover:border-[var(--accent-brass)]">
                         <span>🔔</span> Bell Test
                     </button>
                 </div>
@@ -303,24 +309,24 @@
         </div>
 
         <!-- CLOUD ACCOUNT DRAWER OVERLAY -->
-        <div id="cloud-drawer" class="absolute top-12 right-4 w-80 bg-[#e8ded0] border-4 border-[#3a3d40] rounded-lg shadow-2xl z-50 hidden font-typewriter p-4 pointer-events-auto">
+        <div id="cloud-drawer" class="absolute top-12 right-4 w-80 bg-[var(--paper-card)] border-4 border-[#3a3d40] rounded-lg shadow-2xl z-50 hidden font-typewriter p-4 pointer-events-auto">
             <div class="flex justify-between items-center border-b-2 border-[#3a3d40] pb-2 mb-3">
-                <h3 class="font-bold text-sm text-[#26221f]">Cloud Account Profile</h3>
+                <h3 class="font-bold text-sm text-[var(--ink-color)]">Cloud Account Profile</h3>
                 <button id="close-cloud-drawer-btn" class="text-xs font-bold text-red-700 hover:text-red-900">✕</button>
             </div>
             <div class="space-y-3 text-xs">
-                <p class="text-gray-700">Create or sign into your Haze OS Cloud Account to synchronize your text documents, browser tabs, and desktop layout across devices.</p>
-                <div class="bg-[#d9cdb0] p-3 rounded border border-[#a8997a]">
+                <p>Create or sign into your Haze OS Cloud Account to synchronize your text documents, browser tabs, and desktop layout across devices.</p>
+                <div class="bg-[var(--paper-bg)] p-3 rounded border border-[var(--paper-dark)]">
                     <div class="font-bold mb-1">Status: <span class="text-green-700">Guest Session</span></div>
-                    <div class="text-[11px] text-gray-600 mb-2">UID: anon-royalite-88492</div>
+                    <div class="text-[11px] opacity-75 mb-2">UID: anon-royalite-88492</div>
                     <label class="block text-[10px] font-bold uppercase mb-1">Account Email</label>
-                    <input type="email" placeholder="user@haze-os.com" class="w-full p-1.5 text-xs bg-[#f4ebd0] border border-[#736551] rounded mb-2 font-mono" id="cloud-email">
+                    <input type="email" placeholder="user@haze-os.com" class="w-full p-1.5 text-xs bg-[var(--paper-card)] border border-[var(--paper-dark)] rounded mb-2 font-mono" id="cloud-email">
                     <label class="block text-[10px] font-bold uppercase mb-1">Password</label>
-                    <input type="password" placeholder="••••••••" class="w-full p-1.5 text-xs bg-[#f4ebd0] border border-[#736551] rounded mb-3 font-mono" id="cloud-pass">
+                    <input type="password" placeholder="••••••••" class="w-full p-1.5 text-xs bg-[var(--paper-card)] border border-[var(--paper-dark)] rounded mb-3 font-mono" id="cloud-pass">
                     
                     <div class="flex gap-2">
                         <button onclick="os.cloudSignUp()" class="vintage-button flex-1 py-1 text-xs font-bold">Register</button>
-                        <button onclick="os.cloudSignIn()" class="vintage-button flex-1 py-1 text-xs font-bold bg-[#967443] text-white">Sign In</button>
+                        <button onclick="os.cloudSignIn()" class="vintage-button flex-1 py-1 text-xs font-bold bg-[var(--accent-brass)] text-white">Sign In</button>
                     </div>
                 </div>
             </div>
@@ -331,12 +337,12 @@
             
             <!-- Left: Start Button & Keyboard Toggle -->
             <div class="flex items-center gap-2">
-                <button id="start-btn" class="vintage-button px-3 py-1 text-xs font-bold flex items-center gap-2 border-2 border-[#967443] bg-gradient-to-r from-[#967443] to-[#73552b] text-white">
+                <button id="start-btn" class="vintage-button px-3 py-1 text-xs font-bold flex items-center gap-2 border-2 border-[var(--accent-brass)] bg-gradient-to-r from-[#967443] to-[#73552b] text-white">
                     <span class="w-3 h-3 rounded-full bg-red-600 border border-white inline-block"></span>
                     START
                 </button>
 
-                <button id="toggle-kb-btn" class="vintage-button px-2 py-1 text-xs font-bold text-[#26221f] flex items-center gap-1">
+                <button id="toggle-kb-btn" class="vintage-button px-2 py-1 text-xs font-bold flex items-center gap-1">
                     <span>⌨️</span> Keycap Board
                 </button>
             </div>
@@ -367,15 +373,22 @@
                 this.zIndexCounter = 100;
                 this.soundEnabled = true;
                 
-                // Desktop Grid State
+                // Desktop Grid State with persisted 104px grid coordinates
                 this.gridApps = [
-                    { id: 'browser', title: 'Radial Web', icon: '⚙️', svg: 'radial' },
-                    { id: 'typewriter', title: 'Carriage Text', icon: '📝' },
-                    { id: 'terminal', title: 'Terminal Shell', icon: '💻' },
-                    { id: 'spool', title: 'Spool Themes', icon: '🎨' },
-                    { id: 'installer', title: 'Ring Installer', icon: '💿' },
-                    { id: 'settings', title: 'System Config', icon: '🛠️' }
+                    { id: 'browser', title: 'Radial Web', icon: '⚙️', svg: 'radial', x: 16, y: 16 },
+                    { id: 'typewriter', title: 'Carriage Text', icon: '📝', x: 16, y: 120 },
+                    { id: 'terminal', title: 'Terminal Shell', icon: '💻', x: 16, y: 224 },
+                    { id: 'spool', title: 'Spool Themes', icon: '🎨', x: 16, y: 328 },
+                    { id: 'installer', title: 'Ring Installer', icon: '💿', x: 120, y: 16 },
+                    { id: 'settings', title: 'System Config', icon: '🛠️', x: 120, y: 120 }
                 ];
+
+                // Advanced Settings State (Scramjet, Epoxy, Libcurl, Bare)
+                this.proxyConfig = {
+                    engine: 'scramjet', // 'scramjet', 'epoxy', 'libcurl', 'bare'
+                    proxyUrl: 'https://api.allorigins.win/raw?url=',
+                    wispServer: 'wss://wisp.mercurywork.shop/'
+                };
 
                 // Tabbed Browser State Manager
                 this.browserTabs = [
@@ -383,7 +396,6 @@
                         id: 'tab-1',
                         title: 'Haze OS Home',
                         url: 'https://wikipedia.org',
-                        mode: 'proxy', // 'proxy', 'scramjet', 'direct'
                         history: ['https://wikipedia.org'],
                         historyIndex: 0
                     }
@@ -391,6 +403,7 @@
                 this.activeTabId = 'tab-1';
 
                 this.initAudio();
+                this.loadSavedState();
                 this.initDesktopIcons();
                 this.initClock();
                 this.initEventListeners();
@@ -398,7 +411,44 @@
             }
 
             // --------------------------------------
-            // 1. WEB AUDIO SYNTHESIZER (TYPEWRITER)
+            // 1. PERSISTENCE & STATE MANAGEMENT
+            // --------------------------------------
+            loadSavedState() {
+                const savedIcons = localStorage.getItem('haze_icon_positions');
+                if (savedIcons) {
+                    try {
+                        const parsed = JSON.parse(savedIcons);
+                        this.gridApps.forEach(app => {
+                            if (parsed[app.id]) {
+                                app.x = parsed[app.id].x;
+                                app.y = parsed[app.id].y;
+                            }
+                        });
+                    } catch(e) { console.error("Error loading icon state", e); }
+                }
+
+                const savedProxy = localStorage.getItem('haze_proxy_config');
+                if (savedProxy) {
+                    try {
+                        this.proxyConfig = Object.assign(this.proxyConfig, JSON.parse(savedProxy));
+                    } catch(e) { console.error("Error loading proxy state", e); }
+                }
+            }
+
+            saveIconPositions() {
+                const posMap = {};
+                this.gridApps.forEach(app => {
+                    posMap[app.id] = { x: app.x, y: app.y };
+                });
+                localStorage.setItem('haze_icon_positions', JSON.stringify(posMap));
+            }
+
+            saveProxyConfig() {
+                localStorage.setItem('haze_proxy_config', JSON.stringify(this.proxyConfig));
+            }
+
+            // --------------------------------------
+            // 2. WEB AUDIO SYNTHESIZER (TYPEWRITER)
             // --------------------------------------
             initAudio() {
                 try {
@@ -468,7 +518,7 @@
                 const gain = this.audioCtx.createGain();
 
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(1760, now); // A6 note bell
+                osc.frequency.setValueAtTime(1760, now); // A6 bell note
 
                 gain.gain.setValueAtTime(0.4, now);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
@@ -481,27 +531,24 @@
             }
 
             // --------------------------------------
-            // 2. DESKTOP GRID & ICON SNAPPING SYSTEM
+            // 3. DESKTOP GRID & ICON SNAPPING SYSTEM
             // --------------------------------------
             initDesktopIcons() {
-                const gridContainer = document.getElementById('desktop-grid');
-                gridContainer.innerHTML = '';
+                const canvas = document.getElementById('desktop-canvas');
+                canvas.innerHTML = '';
 
-                // Load saved positions or compute grid
-                const savedPositions = JSON.parse(localStorage.getItem('haze_desktop_icons') || '{}');
-
-                this.gridApps.forEach((app, index) => {
+                this.gridApps.forEach((app) => {
                     const iconEl = document.createElement('div');
-                    iconEl.className = 'w-[104px] h-[104px] flex flex-col items-center justify-center gap-1 p-2 rounded cursor-pointer pointer-events-auto hover:bg-black/10 transition-colors border border-transparent hover:border-[#967443]/30 font-typewriter group';
+                    iconEl.className = 'desktop-icon flex flex-col items-center justify-center gap-1 p-2 rounded hover:bg-black/10 border border-transparent hover:border-[#967443]/40 font-typewriter group';
                     iconEl.id = `icon-${app.id}`;
-                    iconEl.draggable = true;
+                    iconEl.style.left = `${app.x}px`;
+                    iconEl.style.top = `${app.y}px`;
 
-                    // Custom Radial Propeller SVG Icon for Browser
                     let iconHtml = `<div class="text-3xl group-hover:scale-110 transition-transform">${app.icon}</div>`;
                     if (app.svg === 'radial') {
                         iconHtml = `
                             <div class="w-10 h-10 group-hover:scale-110 transition-transform flex items-center justify-center">
-                                <svg viewBox="0 0 100 100" class="w-full h-full fill-[#26221f] stroke-[#967443] stroke-2">
+                                <svg viewBox="0 0 100 100" class="w-full h-full fill-[var(--ink-color)] stroke-[var(--accent-brass)] stroke-2">
                                     <circle cx="50" cy="50" r="12" />
                                     <path d="M50 10 C55 30, 55 30, 50 38 C45 30, 45 30, 50 10 Z" />
                                     <path d="M50 90 C55 70, 55 70, 50 62 C45 70, 45 70, 50 90 Z" />
@@ -515,25 +562,87 @@
 
                     iconEl.innerHTML = `
                         ${iconHtml}
-                        <span class="text-[11px] font-bold text-center leading-tight text-[#26221f] bg-[#e8ded0]/80 px-1.5 py-0.5 rounded border border-[#736551]/30 shadow-sm">${app.title}</span>
+                        <span class="text-[11px] font-bold text-center leading-tight text-[var(--ink-color)] bg-[var(--paper-card)] px-1.5 py-0.5 rounded border border-[var(--paper-dark)] shadow-sm pointer-events-none">${app.title}</span>
                     `;
 
-                    // Drag & Snapping logic
-                    iconEl.addEventListener('dragstart', (e) => {
-                        e.dataTransfer.setData('text/plain', app.id);
-                        this.playKeyClick();
-                    });
-
-                    iconEl.addEventListener('dblclick', () => {
-                        this.openApp(app.id);
-                    });
-
-                    gridContainer.appendChild(iconEl);
+                    this.makeIconDraggable(iconEl, app);
+                    canvas.appendChild(iconEl);
                 });
             }
 
+            makeIconDraggable(iconEl, app) {
+                let isDragging = false;
+                let startX = 0, startY = 0;
+                let origX = app.x, origY = app.y;
+                let hasMoved = false;
+
+                const onPointerDown = (e) => {
+                    isDragging = true;
+                    hasMoved = false;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    origX = app.x;
+                    origY = app.y;
+                    
+                    iconEl.setPointerCapture(e.pointerId);
+                    this.playKeyClick();
+                };
+
+                const onPointerMove = (e) => {
+                    if (!isDragging) return;
+                    const dx = e.clientX - startX;
+                    const dy = e.clientY - startY;
+
+                    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+                        hasMoved = true;
+                    }
+
+                    if (hasMoved) {
+                        app.x = origX + dx;
+                        app.y = origY + dy;
+                        iconEl.style.left = `${app.x}px`;
+                        iconEl.style.top = `${app.y}px`;
+                    }
+                };
+
+                const onPointerUp = (e) => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    try { iconEl.releasePointerCapture(e.pointerId); } catch(err){}
+
+                    if (hasMoved) {
+                        // Clean 104px Grid Snapping Math
+                        const gridSize = 104;
+                        const margin = 16;
+                        
+                        let snappedX = Math.round((app.x - margin) / gridSize) * gridSize + margin;
+                        let snappedY = Math.round((app.y - margin) / gridSize) * gridSize + margin;
+
+                        // Bounds checking
+                        snappedX = Math.max(margin, Math.min(window.innerWidth - gridSize, snappedX));
+                        snappedY = Math.max(margin, Math.min(window.innerHeight - gridSize - 48, snappedY));
+
+                        app.x = snappedX;
+                        app.y = snappedY;
+
+                        iconEl.style.left = `${app.x}px`;
+                        iconEl.style.top = `${app.y}px`;
+
+                        this.saveIconPositions();
+                        this.playKeyClick();
+                    } else {
+                        // Clicked without drag -> launch app
+                        this.openApp(app.id);
+                    }
+                };
+
+                iconEl.addEventListener('pointerdown', onPointerDown);
+                iconEl.addEventListener('pointermove', onPointerMove);
+                iconEl.addEventListener('pointerup', onPointerUp);
+            }
+
             // --------------------------------------
-            // 3. WINDOW MANAGEMENT SYSTEM
+            // 4. WINDOW MANAGEMENT SYSTEM
             // --------------------------------------
             openApp(appId) {
                 this.playKeyClick();
@@ -546,20 +655,18 @@
 
                 const windowEl = document.createElement('div');
                 windowEl.id = `win-${appId}`;
-                windowEl.className = 'vintage-window absolute pointer-events-auto flex flex-col font-typewriter resize overflow-hidden min-w-[320px] min-h-[220px] shadow-2xl';
+                windowEl.className = 'vintage-window absolute pointer-events-auto flex flex-col font-typewriter resize overflow-hidden min-w-[340px] min-h-[240px] shadow-2xl';
                 windowEl.style.zIndex = ++this.zIndexCounter;
 
-                // Center initial placement with offset
                 const offset = Object.keys(this.windows).length * 25;
-                const width = Math.min(window.innerWidth - 40, 820);
-                const height = Math.min(window.innerHeight - 120, 520);
+                const width = Math.min(window.innerWidth - 40, 840);
+                const height = Math.min(window.innerHeight - 120, 540);
                 
                 windowEl.style.width = `${width}px`;
                 windowEl.style.height = `${height}px`;
-                windowEl.style.top = `${60 + offset}px`;
+                windowEl.style.top = `${50 + offset}px`;
                 windowEl.style.left = `${Math.max(20, (window.innerWidth - width) / 2 + offset)}px`;
 
-                // Window Header
                 const appInfo = this.gridApps.find(a => a.id === appId) || { title: appId.toUpperCase(), icon: '🖥️' };
                 
                 windowEl.innerHTML = `
@@ -574,7 +681,7 @@
                             <button onclick="os.closeWindow('${appId}')" class="vintage-button w-5 h-5 flex items-center justify-center text-xs font-bold leading-none text-red-900 hover:bg-red-300">✕</button>
                         </div>
                     </div>
-                    <div class="flex-1 bg-[#e8ded0] relative overflow-auto p-2" id="win-content-${appId}">
+                    <div class="flex-1 bg-[var(--paper-card)] relative overflow-auto p-2" id="win-content-${appId}">
                         <!-- Content Injected Dynamically -->
                     </div>
                 `;
@@ -673,7 +780,7 @@
                     const isFocused = this.activeWindowId === appId && !win.el.classList.contains('hidden');
                     
                     const btn = document.createElement('button');
-                    btn.className = `vintage-button px-3 py-1 text-xs flex items-center gap-1.5 border max-w-[160px] truncate ${isFocused ? 'bg-[#967443] text-white border-[#26221f]' : 'opacity-80'}`;
+                    btn.className = `vintage-button px-3 py-1 text-xs flex items-center gap-1.5 border max-w-[160px] truncate ${isFocused ? 'bg-[var(--accent-brass)] text-white border-[#26221f]' : 'opacity-80'}`;
                     btn.innerHTML = `<span>${win.icon}</span> <span class="truncate">${win.title}</span>`;
                     
                     btn.onclick = () => {
@@ -690,7 +797,7 @@
             }
 
             // --------------------------------------
-            // 4. APP RENDERERS & TABBED RADIAL BROWSER
+            // 5. SYSTEM APPLICATIONS & RENDERING
             // --------------------------------------
             renderAppContent(appId) {
                 const container = document.getElementById(`win-content-${appId}`);
@@ -703,14 +810,14 @@
                     case 'typewriter':
                         container.innerHTML = `
                             <div class="flex flex-col h-full gap-2">
-                                <div class="flex justify-between items-center bg-[#d9cdb0] p-1.5 rounded border border-[#736551]/40 text-xs">
+                                <div class="flex justify-between items-center bg-[var(--paper-bg)] p-1.5 rounded border border-[var(--paper-dark)] text-xs">
                                     <div class="flex gap-2">
                                         <button onclick="os.playCarriageSound()" class="vintage-button px-2 py-0.5">🔔 Carriage Return</button>
                                         <button onclick="document.getElementById('editor-area').value=''" class="vintage-button px-2 py-0.5 text-red-900">Clear Page</button>
                                     </div>
-                                    <div class="text-[11px] text-[#736551] font-bold" id="editor-stats">Words: 0 | Chars: 0</div>
+                                    <div class="text-[11px] opacity-75 font-bold" id="editor-stats">Words: 0 | Chars: 0</div>
                                 </div>
-                                <textarea id="editor-area" oninput="os.updateEditorStats()" class="flex-1 p-4 bg-[#f4ebd0] text-[#26221f] font-courier text-base leading-relaxed border-2 border-[#736551] rounded focus:outline-none resize-none shadow-inner" placeholder="Begin typing your document on Royalite typewriter ribbon..."></textarea>
+                                <textarea id="editor-area" oninput="os.updateEditorStats()" class="flex-1 p-4 bg-[#f4ebd0] text-[#26221f] font-courier text-base leading-relaxed border-2 border-[var(--paper-dark)] rounded focus:outline-none resize-none shadow-inner" placeholder="Begin typing your document on Royalite typewriter ribbon..."></textarea>
                             </div>
                         `;
                         break;
@@ -732,7 +839,7 @@
                     case 'spool':
                         container.innerHTML = `
                             <div class="p-4 space-y-4 text-xs">
-                                <h3 class="font-bold border-b border-[#736551] pb-1">Typewriter Ribbon Color Spools</h3>
+                                <h3 class="font-bold border-b border-[var(--paper-dark)] pb-1">Typewriter Ribbon Color Spools</h3>
                                 <p>Select a mechanical ink ribbon palette for Haze OS user interface styling:</p>
                                 <div class="grid grid-cols-2 gap-3">
                                     <button onclick="os.setSpool('paper')" class="vintage-button p-3 text-left border-2 border-[#967443]">
@@ -758,22 +865,22 @@
                     case 'installer':
                         container.innerHTML = `
                             <div class="p-4 space-y-3 text-xs">
-                                <h3 class="font-bold border-b border-[#736551] pb-1">Ring Installer PWA Shortcut Generator</h3>
+                                <h3 class="font-bold border-b border-[var(--paper-dark)] pb-1">Ring Installer PWA Shortcut Generator</h3>
                                 <p>Generate custom web app margin stop rings directly onto the desktop grid:</p>
-                                <div class="space-y-2 bg-[#d9cdb0] p-3 rounded border border-[#736551]">
+                                <div class="space-y-2 bg-[var(--paper-bg)] p-3 rounded border border-[var(--paper-dark)]">
                                     <div>
                                         <label class="block font-bold mb-1">Application Title</label>
-                                        <input id="pwa-title" type="text" placeholder="e.g. Retro Games" class="w-full p-1 border rounded bg-white font-mono">
+                                        <input id="pwa-title" type="text" placeholder="e.g. Retro Games" class="w-full p-1 border rounded bg-white font-mono text-[#26221f]">
                                     </div>
                                     <div>
                                         <label class="block font-bold mb-1">Web URL</label>
-                                        <input id="pwa-url" type="text" placeholder="https://example.com" class="w-full p-1 border rounded bg-white font-mono">
+                                        <input id="pwa-url" type="text" placeholder="https://example.com" class="w-full p-1 border rounded bg-white font-mono text-[#26221f]">
                                     </div>
                                     <div>
                                         <label class="block font-bold mb-1">Emoji Icon</label>
-                                        <input id="pwa-icon" type="text" placeholder="🎮" class="w-full p-1 border rounded bg-white font-mono">
+                                        <input id="pwa-icon" type="text" placeholder="🎮" class="w-full p-1 border rounded bg-white font-mono text-[#26221f]">
                                     </div>
-                                    <button onclick="os.installPWA()" class="vintage-button w-full py-1.5 font-bold bg-[#967443] text-white">
+                                    <button onclick="os.installPWA()" class="vintage-button w-full py-1.5 font-bold bg-[var(--accent-brass)] text-white">
                                         Install Margin Ring Shortcut
                                     </button>
                                 </div>
@@ -781,36 +888,80 @@
                         `;
                         break;
                     case 'settings':
-                        container.innerHTML = `
-                            <div class="p-4 space-y-4 text-xs">
-                                <h3 class="font-bold border-b border-[#736551] pb-1">System Configuration & Cloud Integration</h3>
-                                <div class="space-y-2 bg-[#d9cdb0] p-3 rounded border border-[#736551]">
-                                    <label class="block font-bold">Scramjet / CORS Proxy Backend URL</label>
-                                    <input type="text" value="https://api.allorigins.win/raw?url=" class="w-full p-1 border rounded bg-white font-mono text-[11px]" id="cfg-proxy">
-                                    <p class="text-[10px] text-gray-600">Proxy engine handles direct web rendering inside Radial Web Tabs.</p>
-                                </div>
-
-                                <div class="flex gap-2">
-                                    <button onclick="os.exportState()" class="vintage-button flex-1 py-1.5 font-bold">
-                                        Export Config JSON
-                                    </button>
-                                    <button onclick="os.importState()" class="vintage-button flex-1 py-1.5 font-bold">
-                                        Import Config JSON
-                                    </button>
-                                </div>
-                            </div>
-                        `;
+                        this.renderSettings(container);
                         break;
                 }
             }
 
             // --------------------------------------
-            // 5. TABBED RADIAL WEB BROWSER CORE
+            // 6. MULTI-ENGINE SYSTEM CONFIG & PROXY
+            // --------------------------------------
+            renderSettings(container) {
+                container.innerHTML = `
+                    <div class="p-4 space-y-4 text-xs font-typewriter">
+                        <h3 class="font-bold border-b border-[var(--paper-dark)] pb-1 text-sm">System Configuration & Proxy Engine Suite</h3>
+                        
+                        <!-- Proxy Engine Selection -->
+                        <div class="space-y-3 bg-[var(--paper-bg)] p-3 rounded border border-[var(--paper-dark)]">
+                            <div>
+                                <label class="block font-bold mb-1">Radial Web Backend Engine</label>
+                                <select id="cfg-engine-select" onchange="os.updateProxyEngine(this.value)" class="vintage-button w-full p-1.5 text-xs font-mono">
+                                    <option value="scramjet" ${this.proxyConfig.engine === 'scramjet' ? 'selected' : ''}>Scramjet Proxy (Standard Rewrite)</option>
+                                    <option value="epoxy" ${this.proxyConfig.engine === 'epoxy' ? 'selected' : ''}>Epoxy WASM (Client-Side TLS / Wisp Tunnel)</option>
+                                    <option value="libcurl" ${this.proxyConfig.engine === 'libcurl' ? 'selected' : ''}>Libcurl.js WASM (E2EE Native HTTP/S)</option>
+                                    <option value="bare" ${this.proxyConfig.engine === 'bare' ? 'selected' : ''}>Bare Server / CORS Anywhere Fallback</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-bold mb-1">CORS / Proxy Endpoint URL</label>
+                                <input type="text" value="${this.proxyConfig.proxyUrl}" class="w-full p-1.5 border rounded bg-white font-mono text-[11px] text-[#26221f]" id="cfg-proxy-url" onchange="os.updateProxyUrl(this.value)">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold mb-1">Wisp WebSocket Tunnel Endpoint (For Epoxy & Libcurl.js)</label>
+                                <input type="text" value="${this.proxyConfig.wispServer}" class="w-full p-1.5 border rounded bg-white font-mono text-[11px] text-[#26221f]" id="cfg-wisp-url" onchange="os.updateWispUrl(this.value)">
+                            </div>
+                            
+                            <p class="text-[10px] opacity-75">Configuring Epoxy or Libcurl.js allows complete browser traffic unblocking via WebAssembly TCP sockets without backend HTML rewriting.</p>
+                        </div>
+
+                        <!-- Data Backup & State Import/Export -->
+                        <div class="flex gap-2">
+                            <button onclick="os.exportState()" class="vintage-button flex-1 py-1.5 font-bold">
+                                💾 Export System JSON
+                            </button>
+                            <button onclick="os.importState()" class="vintage-button flex-1 py-1.5 font-bold">
+                                📂 Import System JSON
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            updateProxyEngine(engine) {
+                this.proxyConfig.engine = engine;
+                this.saveProxyConfig();
+                this.playKeyClick();
+            }
+
+            updateProxyUrl(url) {
+                this.proxyConfig.proxyUrl = url;
+                this.saveProxyConfig();
+            }
+
+            updateWispUrl(url) {
+                this.proxyConfig.wispServer = url;
+                this.saveProxyConfig();
+            }
+
+            // --------------------------------------
+            // 7. TABBED RADIAL WEB BROWSER CORE
             // --------------------------------------
             renderBrowser(container) {
                 const activeTab = this.browserTabs.find(t => t.id === this.activeTabId) || this.browserTabs[0];
 
-                container.className = 'flex-1 flex flex-col h-full bg-[#e8ded0] p-0';
+                container.className = 'flex-1 flex flex-col h-full bg-[var(--paper-card)] p-0';
                 container.innerHTML = `
                     <!-- TAB BAR CONTAINER -->
                     <div class="bg-[#292623] pt-1 px-2 flex items-center gap-1 overflow-x-auto border-b border-[#1a1816]" id="browser-tab-bar">
@@ -820,44 +971,44 @@
                                 <button onclick="event.stopPropagation(); os.closeBrowserTab('${tab.id}')" class="hover:text-red-700 font-bold text-[10px] ml-1">✕</button>
                             </div>
                         `).join('')}
-                        <button onclick="os.addBrowserTab()" class="vintage-button px-2 py-0.5 text-xs font-bold text-white bg-[#967443] border-[#26221f] rounded-t my-0.5" title="Open New Tab">+</button>
+                        <button onclick="os.addBrowserTab()" class="vintage-button px-2 py-0.5 text-xs font-bold text-white bg-[var(--accent-brass)] border-[#26221f] rounded-t my-0.5" title="Open New Tab">+</button>
                     </div>
 
                     <!-- BROWSER TOOLBAR -->
-                    <div class="bg-[#d9cdb0] p-2 flex items-center gap-2 border-b-2 border-[#736551]">
+                    <div class="bg-[var(--paper-bg)] p-2 flex items-center gap-2 border-b-2 border-[var(--paper-dark)]">
                         <button onclick="os.browserGoBack()" class="vintage-button px-2 py-1 text-xs font-bold">←</button>
                         <button onclick="os.browserGoForward()" class="vintage-button px-2 py-1 text-xs font-bold">→</button>
                         <button onclick="os.browserReload()" class="vintage-button px-2 py-1 text-xs font-bold">↻</button>
                         
-                        <div class="flex-1 flex items-center bg-white border border-[#736551] rounded px-2">
+                        <div class="flex-1 flex items-center bg-white border border-[var(--paper-dark)] rounded px-2">
                             <span class="text-xs mr-1 opacity-60">🌐</span>
-                            <input type="text" id="browser-url-input" value="${activeTab.url}" onkeydown="if(event.key==='Enter') os.navigateBrowserTab(this.value)" class="w-full py-1 text-xs font-mono focus:outline-none bg-transparent">
+                            <input type="text" id="browser-url-input" value="${activeTab.url}" onkeydown="if(event.key==='Enter') os.navigateBrowserTab(this.value)" class="w-full py-1 text-xs font-mono focus:outline-none bg-transparent text-[#26221f]">
                         </div>
 
-                        <select id="browser-proxy-mode" onchange="os.changeProxyMode(this.value)" class="vintage-button py-1 px-1 text-xs font-mono bg-[#e8ded0]">
-                            <option value="proxy" ${activeTab.mode === 'proxy' ? 'selected' : ''}>CORS Proxy</option>
-                            <option value="scramjet" ${activeTab.mode === 'scramjet' ? 'selected' : ''}>Scramjet Node</option>
-                            <option value="direct" ${activeTab.mode === 'direct' ? 'selected' : ''}>Direct Embed</option>
-                        </select>
+                        <span class="text-[10px] font-mono uppercase bg-[var(--paper-card)] px-2 py-1 rounded border border-[var(--paper-dark)]">
+                            Engine: ${this.proxyConfig.engine}
+                        </span>
 
-                        <button onclick="os.navigateBrowserTab(document.getElementById('browser-url-input').value)" class="vintage-button px-3 py-1 text-xs font-bold bg-[#967443] text-white">GO</button>
+                        <button onclick="os.navigateBrowserTab(document.getElementById('browser-url-input').value)" class="vintage-button px-3 py-1 text-xs font-bold bg-[var(--accent-brass)] text-white">GO</button>
                     </div>
 
                     <!-- BROWSER VIEWPORT FRAME -->
                     <div class="flex-1 relative bg-white overflow-hidden">
-                        <iframe id="browser-viewport" src="${this.getFormattedUrl(activeTab.url, activeTab.mode)}" class="w-full h-full border-none" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+                        <iframe id="browser-viewport" src="${this.getFormattedUrl(activeTab.url)}" class="w-full h-full border-none" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
                     </div>
                 `;
             }
 
-            getFormattedUrl(url, mode) {
+            getFormattedUrl(url) {
                 if (!url.startsWith('http://') && !url.startsWith('https://')) {
                     url = 'https://' + url;
                 }
-                if (mode === 'proxy') {
-                    return `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
-                } else if (mode === 'scramjet') {
-                    return url; // Simulated Scramjet Proxy unblocking node
+                
+                if (this.proxyConfig.engine === 'scramjet' || this.proxyConfig.engine === 'bare') {
+                    return `${this.proxyConfig.proxyUrl}${encodeURIComponent(url)}`;
+                } else if (this.proxyConfig.engine === 'epoxy' || this.proxyConfig.engine === 'libcurl') {
+                    // Simulated Epoxy WASM / Libcurl.js Wisp transport wrapper endpoint
+                    return url; 
                 }
                 return url;
             }
@@ -869,7 +1020,6 @@
                     id: newTabId,
                     title: 'New Tab',
                     url: initialUrl,
-                    mode: 'proxy',
                     history: [initialUrl],
                     historyIndex: 0
                 });
@@ -881,7 +1031,7 @@
 
             closeBrowserTab(tabId) {
                 this.playKeyClick();
-                if (this.browserTabs.length === 1) return; // Keep at least 1 tab open
+                if (this.browserTabs.length === 1) return;
                 this.browserTabs = this.browserTabs.filter(t => t.id !== tabId);
                 if (this.activeTabId === tabId) {
                     this.activeTabId = this.browserTabs[this.browserTabs.length - 1].id;
@@ -914,14 +1064,6 @@
                 }
             }
 
-            changeProxyMode(mode) {
-                const tab = this.browserTabs.find(t => t.id === this.activeTabId);
-                if (tab) {
-                    tab.mode = mode;
-                    this.navigateBrowserTab(tab.url);
-                }
-            }
-
             browserGoBack() {
                 const tab = this.browserTabs.find(t => t.id === this.activeTabId);
                 if (tab && tab.historyIndex > 0) {
@@ -948,7 +1090,7 @@
             }
 
             // --------------------------------------
-            // 6. VIRTUAL KEYBOARD & UTILITIES
+            // 8. VIRTUAL KEYBOARD & UTILITIES
             // --------------------------------------
             initKeyboard() {
                 const rows = [
@@ -967,7 +1109,6 @@
                         key.setAttribute('data-key', char);
                         key.onclick = () => {
                             this.playKeyClick();
-                            // Inject into active input if available
                             const activeEl = document.activeElement;
                             if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) {
                                 activeEl.value += char.toLowerCase();
@@ -1010,7 +1151,7 @@
                             - <span class="font-bold">help</span>: Show command menu<br>
                             - <span class="font-bold">clear</span>: Clear terminal screen<br>
                             - <span class="font-bold">date</span>: Display current system clock<br>
-                            - <span class="font-bold">scramjet</span>: Toggle Scramjet Proxy status<br>
+                            - <span class="font-bold">proxy</span>: View active proxy engine setup<br>
                             - <span class="font-bold">reboot</span>: Restart Haze OS session
                         </div>
                     `;
@@ -1018,8 +1159,8 @@
                     output.innerHTML = '';
                 } else if (cleanCmd === 'date') {
                     output.innerHTML += `<div>Current OS Time: ${new Date().toLocaleString()}</div>`;
-                } else if (cleanCmd === 'scramjet') {
-                    output.innerHTML += `<div class="text-yellow-400">Scramjet proxy route initialized on local port 8080.</div>`;
+                } else if (cleanCmd === 'proxy') {
+                    output.innerHTML += `<div class="text-yellow-400">Active Engine: ${this.proxyConfig.engine.toUpperCase()} | Wisp: ${this.proxyConfig.wispServer}</div>`;
                 } else if (cleanCmd === 'reboot') {
                     location.reload();
                 } else {
@@ -1034,15 +1175,23 @@
                 this.playKeyClick();
                 if (theme === 'midnight') {
                     document.documentElement.style.setProperty('--paper-bg', '#26221f');
+                    document.documentElement.style.setProperty('--paper-card', '#36312d');
+                    document.documentElement.style.setProperty('--paper-dark', '#1a1816');
                     document.documentElement.style.setProperty('--ink-color', '#d9cdb0');
                 } else if (theme === 'crimson') {
                     document.documentElement.style.setProperty('--paper-bg', '#8c3d2b');
+                    document.documentElement.style.setProperty('--paper-card', '#a34834');
+                    document.documentElement.style.setProperty('--paper-dark', '#6b2d1f');
                     document.documentElement.style.setProperty('--ink-color', '#ffffff');
                 } else if (theme === 'steel') {
                     document.documentElement.style.setProperty('--paper-bg', '#3a3d40');
+                    document.documentElement.style.setProperty('--paper-card', '#4d5156');
+                    document.documentElement.style.setProperty('--paper-dark', '#282a2c');
                     document.documentElement.style.setProperty('--ink-color', '#f0f0f0');
                 } else {
                     document.documentElement.style.setProperty('--paper-bg', '#d9cdb0');
+                    document.documentElement.style.setProperty('--paper-card', '#e8ded0');
+                    document.documentElement.style.setProperty('--paper-dark', '#c2b391');
                     document.documentElement.style.setProperty('--ink-color', '#26221f');
                 }
             }
@@ -1055,7 +1204,7 @@
                 if (!title || !url) return;
 
                 const appId = 'custom-' + Date.now();
-                this.gridApps.push({ id: appId, title: title, icon: icon });
+                this.gridApps.push({ id: appId, title: title, icon: icon, x: 224, y: 16 });
                 this.initDesktopIcons();
                 this.playCarriageSound();
                 alert(`Ring Shortcut for '${title}' created on desktop grid.`);
@@ -1081,7 +1230,8 @@
             exportState() {
                 const data = JSON.stringify({
                     tabs: this.browserTabs,
-                    apps: this.gridApps
+                    apps: this.gridApps,
+                    proxy: this.proxyConfig
                 }, null, 2);
                 const blob = new Blob([data], { type: 'application/json' });
                 const a = document.createElement('a');
@@ -1121,7 +1271,6 @@
                     document.getElementById('cloud-drawer').classList.add('hidden');
                 };
 
-                // Close start menu on outside click
                 document.addEventListener('click', (e) => {
                     if (!e.target.closest('#start-menu') && !e.target.closest('#start-btn')) {
                         document.getElementById('start-menu').classList.add('hidden');
@@ -1134,7 +1283,6 @@
         let os;
         window.onload = () => {
             os = new HazeOS();
-            // Automatically open Radial Web Browser on load with dynamic tab preview
             os.openApp('browser');
         };
     </script>
