@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haze OS - Royalite Typewriter Edition</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=VT323&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        typewriter: ['"Special Elite"', 'Courier New', 'monospace'],
+                        terminal: ['"VT323"', 'monospace'],
+                        courier: ['"Courier Prime"', 'monospace'],
+                    },
+                    colors: {
+                        vintage: {
+                            paper: '#d9cdb0',
+                            paperDark: '#c2b391',
+                            ink: '#26221f',
+                            brass: '#967443',
+                            brassLight: '#c29b5b',
+                            steel: '#3a3d40',
+                            rust: '#8c3d2b',
+                            greenCRT: '#33ff33',
+                            greenCRTDark: '#0b2b0b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS Styles -->
+    <style>
+        :root {
+            --paper-bg: #d9cdb0;
+            --ink-color: #26221f;
+            --accent-brass: #967443;
+            --ribbon-color: #26221f;
+        }
+
+        body {
+            user-select: none;
+            overflow: hidden;
+            background-color: #1a1816;
+            font-family: 'Special Elite', monospace;
+            color: var(--ink-color);
+        }
+
+        /* Weathered Paper Desktop Background */
+        .desktop-bg {
+            background-color: var(--paper-bg);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0) 30%, rgba(15, 10, 5, 0.85) 100%),
+                linear-gradient(rgba(38, 34, 31, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(38, 34, 31, 0.08) 1px, transparent 1px);
+            background-size: 100% 100%, 26px 26px, 26px 26px;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+        }
+
+        /* Mechanical Watermark */
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-5deg);
+            font-size: 6vw;
+            font-weight: 900;
+            color: rgba(38, 34, 31, 0.07);
+            pointer-events: none;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            white-space: nowrap;
+            font-family: 'Special Elite', monospace;
+            border: 8px solid rgba(38, 34, 31, 0.05);
+            padding: 20px 40px;
+        }
+
+        /* Vintage Window Chrome */
+        .vintage-window {
+            background: #e8ded0;
+            border: 3px solid #3a3d40;
+            box-shadow: 6px 8px 20px rgba(0,0,0,0.6), inset 1px 1px 0px rgba(255,255,255,0.4);
+            border-radius: 4px;
+        }
+
+        .vintage-header {
+            background: linear-gradient(180deg, #4d4943 0%, #292623 100%);
+            color: #d9cdb0;
+            border-bottom: 2px solid #1a1816;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .vintage-button {
+            background: linear-gradient(180deg, #d9cdb0 0%, #b8a783 100%);
+            border: 2px solid #4a4237;
+            box-shadow: inset 1px 1px 0 rgba(255,255,255,0.6), 2px 2px 4px rgba(0,0,0,0.4);
+            color: #26221f;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+            transition: all 0.05s ease;
+        }
+
+        .vintage-button:active {
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.6);
+            transform: translate(1px, 1px);
+        }
+
+        /* Keycap Design for Virtual Keyboard */
+        .typewriter-key {
+            background: radial-gradient(circle at 30% 30%, #fdfbf7, #c5bc9d);
+            border: 3px solid #3a3d40;
+            border-radius: 50%;
+            box-shadow: 0 4px 0 #1f2022, 0 6px 8px rgba(0,0,0,0.5), inset 0 2px 3px rgba(255,255,255,0.8);
+            color: #26221f;
+            font-family: 'Special Elite', monospace;
+            font-weight: bold;
+            transition: all 0.05s ease;
+        }
+
+        .typewriter-key:active, .typewriter-key.pressed {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #1f2022, 0 2px 3px rgba(0,0,0,0.5), inset 0 2px 5px rgba(0,0,0,0.4);
+            background: radial-gradient(circle at 30% 30%, #e2dac3, #a39878);
+        }
+
+        /* CRT Screen Simulation */
+        .crt-screen {
+            background: #081408;
+            color: #33ff33;
+            box-shadow: inset 0 0 15px rgba(0,255,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crt-screen::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 10;
+            background-size: 100% 3px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Scrollbars */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #c5bc9d;
+            border: 1px solid #4a4237;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #736551;
+            border: 1px solid #26221f;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #54493a;
+        }
+
+        /* Browser Tab Bar Styling */
+        .browser-tab {
+            background: linear-gradient(180deg, #b8a783 0%, #8c7d5c 100%);
+            border: 1px solid #3a3d40;
+            border-bottom: none;
+            color: #1a1816;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            position: relative;
+        }
+        .browser-tab.active-tab {
+            background: linear-gradient(180deg, #e8ded0 0%, #c5bc9d 100%);
+            border-color: #26221f;
+            font-weight: bold;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+        }
+        .browser-tab.active-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #c5bc9d;
+        }
+    </style>
+</head>
+<body class="h-screen w-screen overflow-hidden select-none">
+
+    <div id="desktop" class="desktop-bg relative w-full h-full overflow-hidden">
+        
+        <!-- Mechanical Watermark -->
+        <div class="watermark">HAZE OS // ROYALITE</div>
+
+        <!-- Desktop Grid Icons Container -->
+        <div id="desktop-grid" class="absolute inset-0 p-4 grid grid-flow-col grid-rows-[repeat(auto-fill,104px)] grid-cols-[repeat(auto-fill,104px)] gap-2 pointer-events-none">
+            <!-- Icons rendered dynamically by JS -->
+        </div>
+
+        <!-- WINDOW LAYER CONTAINER -->
+        <div id="window-layer" class="absolute inset-0 pointer-events-none pb-12">
+            <!-- Dynamic Operating System Windows injected here -->
+        </div>
+
+        <!-- VIRTUAL KEYBOARD PANEL -->
+        <div id="keyboard-panel" class="absolute bottom-12 left-1/2 -translate-x-1/2 bg-[#2b2724] border-t-4 border-x-4 border-[#595147] rounded-t-xl p-3 shadow-2xl z-30 transition-all duration-300 transform translate-y-full opacity-0 pointer-events-auto max-w-4xl w-full">
+            <div class="flex justify-between items-center mb-2 px-2 border-b border-[#423c37] pb-1">
+                <span class="text-xs text-[#d9cdb0] font-typewriter uppercase tracking-widest flex items-center gap-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                    Royalite Mechanical Key Mechanism
+                </span>
+                <button id="close-keyboard-btn" class="text-[#d9cdb0] hover:text-red-400 text-xs px-2 py-0.5 border border-[#595147] rounded bg-[#1f1c1a]">✕ Hide Keyboard</button>
+            </div>
+            
+            <div class="flex flex-col gap-1.5 p-2 bg-[#1a1816] rounded-lg border border-[#3d3732] shadow-inner">
+                <!-- Key Rows -->
+                <div class="flex justify-center gap-1.5" id="key-row-1"></div>
+                <div class="flex justify-center gap-1.5" id="key-row-2"></div>
+                <div class="flex justify-center gap-1.5" id="key-row-3"></div>
+                <div class="flex justify-center gap-1.5" id="key-row-4"></div>
+                <div class="flex justify-center gap-2 mt-1">
+                    <button data-key=" " class="typewriter-key h-10 w-64 rounded-full text-xs tracking-widest uppercase">Spacebar</button>
+                    <button data-key="Enter" class="typewriter-key h-10 w-24 rounded-lg text-xs uppercase bg-[#967443] text-white">Carriage ↵</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- START MENU OVERLAY -->
+        <div id="start-menu" class="absolute bottom-12 left-2 w-80 sm:w-96 bg-[#d9cdb0] border-4 border-[#3a3d40] rounded-t-lg shadow-2xl z-50 hidden font-typewriter pointer-events-auto">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-[#292623] to-[#4d4943] text-[#d9cdb0] p-3 flex items-center justify-between border-b-2 border-[#1a1816]">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full border-2 border-[#967443] bg-[#1a1816] flex items-center justify-center font-bold text-lg text-[#967443]">
+                        H
+                    </div>
+                    <div>
+                        <div class="font-bold text-sm tracking-wider">ROYALITE USER</div>
+                        <div class="text-[10px] text-green-400 font-mono flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-green-500 inline-block"></span> Active Cloud Profile
+                        </div>
+                    </div>
+                </div>
+                <button id="cloud-drawer-toggle" class="text-xs bg-[#967443] hover:bg-[#c29b5b] text-white px-2 py-1 rounded border border-[#26221f]">
+                    Account
+                </button>
+            </div>
+
+            <!-- Start Menu Body (Dual Column) -->
+            <div class="grid grid-cols-12 bg-[#e8ded0] text-[#26221f] min-h-[260px]">
+                <!-- Left Column: Primary System Apps -->
+                <div class="col-span-7 p-2 space-y-1 border-r-2 border-[#c2b391]">
+                    <div class="text-[10px] font-bold text-[#736551] uppercase tracking-wider px-2 py-1 border-b border-[#c2b391]">Programs</div>
+                    <button onclick="os.openApp('browser')" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[#967443]">
+                        <span>⚙️</span> Radial Web Browser
+                    </button>
+                    <button onclick="os.openApp('typewriter')" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[#967443]">
+                        <span>📝</span> Carriage Text Editor
+                    </button>
+                    <button onclick="os.openApp('terminal')" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[#967443]">
+                        <span>💻</span> Terminal Shell (VT323)
+                    </button>
+                    <button onclick="os.openApp('spool')" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[#967443]">
+                        <span>🎨</span> Ribbon Spool Color
+                    </button>
+                    <button onclick="os.openApp('installer')" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs font-bold border border-transparent hover:border-[#967443]">
+                        <span>💿</span> Ring Installer PWA
+                    </button>
+                </div>
+
+                <!-- Right Column: Settings & Utilities -->
+                <div class="col-span-5 p-2 bg-[#d9cdb0] space-y-1">
+                    <div class="text-[10px] font-bold text-[#736551] uppercase tracking-wider px-2 py-1 border-b border-[#c2b391]">System</div>
+                    <button onclick="os.openApp('settings')" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs border border-transparent hover:border-[#967443]">
+                        <span>🛠️</span> System Config
+                    </button>
+                    <button onclick="os.toggleKeyboard()" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs border border-transparent hover:border-[#967443]">
+                        <span>⌨️</span> Key Mechanism
+                    </button>
+                    <button onclick="os.playCarriageSound()" class="w-full text-left px-2 py-1.5 hover:bg-[#c2b391] rounded flex items-center gap-2 text-xs border border-transparent hover:border-[#967443]">
+                        <span>🔔</span> Bell Test
+                    </button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-[#292623] p-2 flex justify-between items-center border-t-2 border-[#1a1816]">
+                <span class="text-[10px] text-[#d9cdb0]">Haze OS v3.5 (Royalite Ed.)</span>
+                <button onclick="location.reload()" class="vintage-button text-xs px-2 py-0.5 rounded bg-red-800 text-white border-red-950">
+                    Reboot OS
+                </button>
+            </div>
+        </div>
+
+        <!-- CLOUD ACCOUNT DRAWER OVERLAY -->
+        <div id="cloud-drawer" class="absolute top-12 right-4 w-80 bg-[#e8ded0] border-4 border-[#3a3d40] rounded-lg shadow-2xl z-50 hidden font-typewriter p-4 pointer-events-auto">
+            <div class="flex justify-between items-center border-b-2 border-[#3a3d40] pb-2 mb-3">
+                <h3 class="font-bold text-sm text-[#26221f]">Cloud Account Profile</h3>
+                <button id="close-cloud-drawer-btn" class="text-xs font-bold text-red-700 hover:text-red-900">✕</button>
+            </div>
+            <div class="space-y-3 text-xs">
+                <p class="text-gray-700">Create or sign into your Haze OS Cloud Account to synchronize your text documents, browser tabs, and desktop layout across devices.</p>
+                <div class="bg-[#d9cdb0] p-3 rounded border border-[#a8997a]">
+                    <div class="font-bold mb-1">Status: <span class="text-green-700">Guest Session</span></div>
+                    <div class="text-[11px] text-gray-600 mb-2">UID: anon-royalite-88492</div>
+                    <label class="block text-[10px] font-bold uppercase mb-1">Account Email</label>
+                    <input type="email" placeholder="user@haze-os.com" class="w-full p-1.5 text-xs bg-[#f4ebd0] border border-[#736551] rounded mb-2 font-mono" id="cloud-email">
+                    <label class="block text-[10px] font-bold uppercase mb-1">Password</label>
+                    <input type="password" placeholder="••••••••" class="w-full p-1.5 text-xs bg-[#f4ebd0] border border-[#736551] rounded mb-3 font-mono" id="cloud-pass">
+                    
+                    <div class="flex gap-2">
+                        <button onclick="os.cloudSignUp()" class="vintage-button flex-1 py-1 text-xs font-bold">Register</button>
+                        <button onclick="os.cloudSignIn()" class="vintage-button flex-1 py-1 text-xs font-bold bg-[#967443] text-white">Sign In</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TASKBAR -->
+        <div class="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-r from-[#211f1d] via-[#3a3530] to-[#211f1d] border-t-2 border-[#595147] flex items-center justify-between px-2 z-40 shadow-2xl pointer-events-auto">
+            
+            <!-- Left: Start Button & Keyboard Toggle -->
+            <div class="flex items-center gap-2">
+                <button id="start-btn" class="vintage-button px-3 py-1 text-xs font-bold flex items-center gap-2 border-2 border-[#967443] bg-gradient-to-r from-[#967443] to-[#73552b] text-white">
+                    <span class="w-3 h-3 rounded-full bg-red-600 border border-white inline-block"></span>
+                    START
+                </button>
+
+                <button id="toggle-kb-btn" class="vintage-button px-2 py-1 text-xs font-bold text-[#26221f] flex items-center gap-1">
+                    <span>⌨️</span> Keycap Board
+                </button>
+            </div>
+
+            <!-- Middle: Active Window Task Tabs -->
+            <div id="taskbar-tabs" class="flex-1 flex items-center gap-1 px-4 overflow-x-auto h-full">
+                <!-- Dynamic taskbar items -->
+            </div>
+
+            <!-- Right: System Tray & Clock -->
+            <div class="flex items-center gap-3 bg-[#171514] px-3 py-1 rounded border border-[#423c37] text-[#d9cdb0] text-xs font-mono">
+                <div id="sound-status" title="Mechanical Sound Engine Active" class="cursor-pointer text-green-400">🔊</div>
+                <div id="clock-display" class="font-bold tracking-wider">12:00 PM</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ==========================================
+        // HAZE OS ARCHITECTURE & CORE SYSTEM SUITE
+        // ==========================================
+
+        class HazeOS {
+            constructor() {
+                this.windows = {};
+                this.activeWindowId = null;
+                this.zIndexCounter = 100;
+                this.soundEnabled = true;
+                
+                // Desktop Grid State
+                this.gridApps = [
+                    { id: 'browser', title: 'Radial Web', icon: '⚙️', svg: 'radial' },
+                    { id: 'typewriter', title: 'Carriage Text', icon: '📝' },
+                    { id: 'terminal', title: 'Terminal Shell', icon: '💻' },
+                    { id: 'spool', title: 'Spool Themes', icon: '🎨' },
+                    { id: 'installer', title: 'Ring Installer', icon: '💿' },
+                    { id: 'settings', title: 'System Config', icon: '🛠️' }
+                ];
+
+                // Tabbed Browser State Manager
+                this.browserTabs = [
+                    {
+                        id: 'tab-1',
+                        title: 'Haze OS Home',
+                        url: 'https://wikipedia.org',
+                        mode: 'proxy', // 'proxy', 'scramjet', 'direct'
+                        history: ['https://wikipedia.org'],
+                        historyIndex: 0
+                    }
+                ];
+                this.activeTabId = 'tab-1';
+
+                this.initAudio();
+                this.initDesktopIcons();
+                this.initClock();
+                this.initEventListeners();
+                this.initKeyboard();
+            }
+
+            // --------------------------------------
+            // 1. WEB AUDIO SYNTHESIZER (TYPEWRITER)
+            // --------------------------------------
+            initAudio() {
+                try {
+                    this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                } catch(e) {
+                    console.warn("Web Audio API not supported");
+                }
+            }
+
+            playKeyClick() {
+                if (!this.soundEnabled || !this.audioCtx) return;
+                if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+
+                const now = this.audioCtx.currentTime;
+                
+                // Metallic Key Click Oscillator
+                const osc = this.audioCtx.createOscillator();
+                const gain = this.audioCtx.createGain();
+                
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(800 + Math.random() * 400, now);
+                osc.frequency.exponentialRampToValueAtTime(120, now + 0.04);
+                
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.04);
+                
+                osc.connect(gain);
+                gain.connect(this.audioCtx.destination);
+                
+                osc.start(now);
+                osc.stop(now + 0.04);
+
+                // Mechanical Thud Noise
+                const bufferSize = this.audioCtx.sampleRate * 0.03;
+                const buffer = this.audioCtx.createBuffer(1, bufferSize, this.audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = Math.random() * 2 - 1;
+                }
+
+                const noise = this.audioCtx.createBufferSource();
+                noise.buffer = buffer;
+
+                const filter = this.audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(400, now);
+
+                const noiseGain = this.audioCtx.createGain();
+                noiseGain.gain.setValueAtTime(0.2, now);
+                noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.03);
+
+                noise.connect(filter);
+                filter.connect(noiseGain);
+                noiseGain.connect(this.audioCtx.destination);
+
+                noise.start(now);
+            }
+
+            playCarriageSound() {
+                if (!this.soundEnabled || !this.audioCtx) return;
+                if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+
+                const now = this.audioCtx.currentTime;
+
+                // High metallic bell chime
+                const osc = this.audioCtx.createOscillator();
+                const gain = this.audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(1760, now); // A6 note bell
+
+                gain.gain.setValueAtTime(0.4, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+
+                osc.connect(gain);
+                gain.connect(this.audioCtx.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.8);
+            }
+
+            // --------------------------------------
+            // 2. DESKTOP GRID & ICON SNAPPING SYSTEM
+            // --------------------------------------
+            initDesktopIcons() {
+                const gridContainer = document.getElementById('desktop-grid');
+                gridContainer.innerHTML = '';
+
+                // Load saved positions or compute grid
+                const savedPositions = JSON.parse(localStorage.getItem('haze_desktop_icons') || '{}');
+
+                this.gridApps.forEach((app, index) => {
+                    const iconEl = document.createElement('div');
+                    iconEl.className = 'w-[104px] h-[104px] flex flex-col items-center justify-center gap-1 p-2 rounded cursor-pointer pointer-events-auto hover:bg-black/10 transition-colors border border-transparent hover:border-[#967443]/30 font-typewriter group';
+                    iconEl.id = `icon-${app.id}`;
+                    iconEl.draggable = true;
+
+                    // Custom Radial Propeller SVG Icon for Browser
+                    let iconHtml = `<div class="text-3xl group-hover:scale-110 transition-transform">${app.icon}</div>`;
+                    if (app.svg === 'radial') {
+                        iconHtml = `
+                            <div class="w-10 h-10 group-hover:scale-110 transition-transform flex items-center justify-center">
+                                <svg viewBox="0 0 100 100" class="w-full h-full fill-[#26221f] stroke-[#967443] stroke-2">
+                                    <circle cx="50" cy="50" r="12" />
+                                    <path d="M50 10 C55 30, 55 30, 50 38 C45 30, 45 30, 50 10 Z" />
+                                    <path d="M50 90 C55 70, 55 70, 50 62 C45 70, 45 70, 50 90 Z" />
+                                    <path d="M10 50 C30 55, 30 55, 38 50 C30 45, 30 45, 10 50 Z" />
+                                    <path d="M90 50 C70 55, 70 55, 62 50 C70 45, 70 45, 90 50 Z" />
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke-dasharray="4 2" />
+                                </svg>
+                            </div>
+                        `;
+                    }
+
+                    iconEl.innerHTML = `
+                        ${iconHtml}
+                        <span class="text-[11px] font-bold text-center leading-tight text-[#26221f] bg-[#e8ded0]/80 px-1.5 py-0.5 rounded border border-[#736551]/30 shadow-sm">${app.title}</span>
+                    `;
+
+                    // Drag & Snapping logic
+                    iconEl.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.setData('text/plain', app.id);
+                        this.playKeyClick();
+                    });
+
+                    iconEl.addEventListener('dblclick', () => {
+                        this.openApp(app.id);
+                    });
+
+                    gridContainer.appendChild(iconEl);
+                });
+            }
+
+            // --------------------------------------
+            // 3. WINDOW MANAGEMENT SYSTEM
+            // --------------------------------------
+            openApp(appId) {
+                this.playKeyClick();
+                document.getElementById('start-menu').classList.add('hidden');
+
+                if (this.windows[appId]) {
+                    this.focusWindow(appId);
+                    return;
+                }
+
+                const windowEl = document.createElement('div');
+                windowEl.id = `win-${appId}`;
+                windowEl.className = 'vintage-window absolute pointer-events-auto flex flex-col font-typewriter resize overflow-hidden min-w-[320px] min-h-[220px] shadow-2xl';
+                windowEl.style.zIndex = ++this.zIndexCounter;
+
+                // Center initial placement with offset
+                const offset = Object.keys(this.windows).length * 25;
+                const width = Math.min(window.innerWidth - 40, 820);
+                const height = Math.min(window.innerHeight - 120, 520);
+                
+                windowEl.style.width = `${width}px`;
+                windowEl.style.height = `${height}px`;
+                windowEl.style.top = `${60 + offset}px`;
+                windowEl.style.left = `${Math.max(20, (window.innerWidth - width) / 2 + offset)}px`;
+
+                // Window Header
+                const appInfo = this.gridApps.find(a => a.id === appId) || { title: appId.toUpperCase(), icon: '🖥️' };
+                
+                windowEl.innerHTML = `
+                    <div class="vintage-header px-3 py-1.5 flex items-center justify-between cursor-move select-none" id="win-header-${appId}">
+                        <div class="flex items-center gap-2 font-bold text-xs tracking-wider">
+                            <span>${appInfo.icon}</span>
+                            <span>${appInfo.title}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="os.minimizeWindow('${appId}')" class="vintage-button w-5 h-5 flex items-center justify-center text-xs font-bold leading-none">_</button>
+                            <button onclick="os.maximizeWindow('${appId}')" class="vintage-button w-5 h-5 flex items-center justify-center text-xs font-bold leading-none">□</button>
+                            <button onclick="os.closeWindow('${appId}')" class="vintage-button w-5 h-5 flex items-center justify-center text-xs font-bold leading-none text-red-900 hover:bg-red-300">✕</button>
+                        </div>
+                    </div>
+                    <div class="flex-1 bg-[#e8ded0] relative overflow-auto p-2" id="win-content-${appId}">
+                        <!-- Content Injected Dynamically -->
+                    </div>
+                `;
+
+                document.getElementById('window-layer').appendChild(windowEl);
+                this.windows[appId] = { el: windowEl, isMaximized: false, title: appInfo.title, icon: appInfo.icon };
+                
+                this.makeDraggable(windowEl, document.getElementById(`win-header-${appId}`));
+                this.renderAppContent(appId);
+                this.updateTaskbar();
+                this.focusWindow(appId);
+            }
+
+            focusWindow(appId) {
+                if (!this.windows[appId]) return;
+                this.zIndexCounter++;
+                this.windows[appId].el.style.zIndex = this.zIndexCounter;
+                this.windows[appId].el.classList.remove('hidden');
+                this.activeWindowId = appId;
+                this.updateTaskbar();
+            }
+
+            minimizeWindow(appId) {
+                this.playKeyClick();
+                if (this.windows[appId]) {
+                    this.windows[appId].el.classList.add('hidden');
+                    this.updateTaskbar();
+                }
+            }
+
+            maximizeWindow(appId) {
+                this.playKeyClick();
+                const win = this.windows[appId];
+                if (!win) return;
+
+                if (win.isMaximized) {
+                    win.el.style.top = win.prevTop;
+                    win.el.style.left = win.prevLeft;
+                    win.el.style.width = win.prevWidth;
+                    win.el.style.height = win.prevHeight;
+                    win.isMaximized = false;
+                } else {
+                    win.prevTop = win.el.style.top;
+                    win.prevLeft = win.el.style.left;
+                    win.prevWidth = win.el.style.width;
+                    win.prevHeight = win.el.style.height;
+
+                    win.el.style.top = '0px';
+                    win.el.style.left = '0px';
+                    win.el.style.width = '100vw';
+                    win.el.style.height = 'calc(100vh - 48px)';
+                    win.isMaximized = true;
+                }
+            }
+
+            closeWindow(appId) {
+                this.playKeyClick();
+                if (this.windows[appId]) {
+                    this.windows[appId].el.remove();
+                    delete this.windows[appId];
+                    this.updateTaskbar();
+                }
+            }
+
+            makeDraggable(windowEl, headerEl) {
+                let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+                headerEl.onmousedown = (e) => {
+                    e.preventDefault();
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    this.focusWindow(windowEl.id.replace('win-', ''));
+                    
+                    document.onmouseup = () => {
+                        document.onmouseup = null;
+                        document.onmousemove = null;
+                    };
+                    
+                    document.onmousemove = (e) => {
+                        e.preventDefault();
+                        pos1 = pos3 - e.clientX;
+                        pos2 = pos4 - e.clientY;
+                        pos3 = e.clientX;
+                        pos4 = e.clientY;
+                        windowEl.style.top = (windowEl.offsetTop - pos2) + "px";
+                        windowEl.style.left = (windowEl.offsetLeft - pos1) + "px";
+                    };
+                };
+            }
+
+            updateTaskbar() {
+                const taskContainer = document.getElementById('taskbar-tabs');
+                taskContainer.innerHTML = '';
+
+                Object.keys(this.windows).forEach(appId => {
+                    const win = this.windows[appId];
+                    const isFocused = this.activeWindowId === appId && !win.el.classList.contains('hidden');
+                    
+                    const btn = document.createElement('button');
+                    btn.className = `vintage-button px-3 py-1 text-xs flex items-center gap-1.5 border max-w-[160px] truncate ${isFocused ? 'bg-[#967443] text-white border-[#26221f]' : 'opacity-80'}`;
+                    btn.innerHTML = `<span>${win.icon}</span> <span class="truncate">${win.title}</span>`;
+                    
+                    btn.onclick = () => {
+                        if (win.el.classList.contains('hidden')) {
+                            this.focusWindow(appId);
+                        } else if (isFocused) {
+                            this.minimizeWindow(appId);
+                        } else {
+                            this.focusWindow(appId);
+                        }
+                    };
+                    taskContainer.appendChild(btn);
+                });
+            }
+
+            // --------------------------------------
+            // 4. APP RENDERERS & TABBED RADIAL BROWSER
+            // --------------------------------------
+            renderAppContent(appId) {
+                const container = document.getElementById(`win-content-${appId}`);
+                if (!container) return;
+
+                switch(appId) {
+                    case 'browser':
+                        this.renderBrowser(container);
+                        break;
+                    case 'typewriter':
+                        container.innerHTML = `
+                            <div class="flex flex-col h-full gap-2">
+                                <div class="flex justify-between items-center bg-[#d9cdb0] p-1.5 rounded border border-[#736551]/40 text-xs">
+                                    <div class="flex gap-2">
+                                        <button onclick="os.playCarriageSound()" class="vintage-button px-2 py-0.5">🔔 Carriage Return</button>
+                                        <button onclick="document.getElementById('editor-area').value=''" class="vintage-button px-2 py-0.5 text-red-900">Clear Page</button>
+                                    </div>
+                                    <div class="text-[11px] text-[#736551] font-bold" id="editor-stats">Words: 0 | Chars: 0</div>
+                                </div>
+                                <textarea id="editor-area" oninput="os.updateEditorStats()" class="flex-1 p-4 bg-[#f4ebd0] text-[#26221f] font-courier text-base leading-relaxed border-2 border-[#736551] rounded focus:outline-none resize-none shadow-inner" placeholder="Begin typing your document on Royalite typewriter ribbon..."></textarea>
+                            </div>
+                        `;
+                        break;
+                    case 'terminal':
+                        container.className = 'flex-1 crt-screen p-3 font-terminal text-lg flex flex-col h-full';
+                        container.innerHTML = `
+                            <div id="term-output" class="flex-1 overflow-y-auto space-y-1 mb-2 leading-tight">
+                                <div>HAZE OS [Version 3.5.0-ROYALITE]</div>
+                                <div>(c) 1976-2026 Haze Mechanical Computation Corp. All rights reserved.</div>
+                                <div>Type <span class="underline font-bold">help</span> to view shell commands.</div>
+                                <br>
+                            </div>
+                            <div class="flex items-center gap-2 border-t border-green-900/50 pt-1">
+                                <span class="text-green-400 font-bold">&gt;</span>
+                                <input type="text" id="term-input" onkeydown="if(event.key==='Enter') os.handleTerminalCmd(this.value)" class="flex-1 bg-transparent text-green-400 focus:outline-none font-terminal text-lg" autofocus>
+                            </div>
+                        `;
+                        break;
+                    case 'spool':
+                        container.innerHTML = `
+                            <div class="p-4 space-y-4 text-xs">
+                                <h3 class="font-bold border-b border-[#736551] pb-1">Typewriter Ribbon Color Spools</h3>
+                                <p>Select a mechanical ink ribbon palette for Haze OS user interface styling:</p>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button onclick="os.setSpool('paper')" class="vintage-button p-3 text-left border-2 border-[#967443]">
+                                        <div class="font-bold">📜 Vintage Paper</div>
+                                        <div class="text-[10px] opacity-75">Classic aged parchment with brass accents</div>
+                                    </button>
+                                    <button onclick="os.setSpool('midnight')" class="vintage-button p-3 text-left border-2 border-[#1a1816] bg-[#292623] text-white">
+                                        <div class="font-bold">🌙 Midnight Ink</div>
+                                        <div class="text-[10px] opacity-75">Dark mechanical steel tone</div>
+                                    </button>
+                                    <button onclick="os.setSpool('crimson')" class="vintage-button p-3 text-left border-2 border-[#8c3d2b] bg-[#8c3d2b] text-white">
+                                        <div class="font-bold">🔴 Crimson Ribbon</div>
+                                        <div class="text-[10px] opacity-75">High contrast red ribbon ink</div>
+                                    </button>
+                                    <button onclick="os.setSpool('steel')" class="vintage-button p-3 text-left border-2 border-[#3a3d40] bg-[#3a3d40] text-white">
+                                        <div class="font-bold">⚙️ Industrial Steel</div>
+                                        <div class="text-[10px] opacity-75">Heavy metallic typewriter casing</div>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                    case 'installer':
+                        container.innerHTML = `
+                            <div class="p-4 space-y-3 text-xs">
+                                <h3 class="font-bold border-b border-[#736551] pb-1">Ring Installer PWA Shortcut Generator</h3>
+                                <p>Generate custom web app margin stop rings directly onto the desktop grid:</p>
+                                <div class="space-y-2 bg-[#d9cdb0] p-3 rounded border border-[#736551]">
+                                    <div>
+                                        <label class="block font-bold mb-1">Application Title</label>
+                                        <input id="pwa-title" type="text" placeholder="e.g. Retro Games" class="w-full p-1 border rounded bg-white font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold mb-1">Web URL</label>
+                                        <input id="pwa-url" type="text" placeholder="https://example.com" class="w-full p-1 border rounded bg-white font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold mb-1">Emoji Icon</label>
+                                        <input id="pwa-icon" type="text" placeholder="🎮" class="w-full p-1 border rounded bg-white font-mono">
+                                    </div>
+                                    <button onclick="os.installPWA()" class="vintage-button w-full py-1.5 font-bold bg-[#967443] text-white">
+                                        Install Margin Ring Shortcut
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                    case 'settings':
+                        container.innerHTML = `
+                            <div class="p-4 space-y-4 text-xs">
+                                <h3 class="font-bold border-b border-[#736551] pb-1">System Configuration & Cloud Integration</h3>
+                                <div class="space-y-2 bg-[#d9cdb0] p-3 rounded border border-[#736551]">
+                                    <label class="block font-bold">Scramjet / CORS Proxy Backend URL</label>
+                                    <input type="text" value="https://api.allorigins.win/raw?url=" class="w-full p-1 border rounded bg-white font-mono text-[11px]" id="cfg-proxy">
+                                    <p class="text-[10px] text-gray-600">Proxy engine handles direct web rendering inside Radial Web Tabs.</p>
+                                </div>
+
+                                <div class="flex gap-2">
+                                    <button onclick="os.exportState()" class="vintage-button flex-1 py-1.5 font-bold">
+                                        Export Config JSON
+                                    </button>
+                                    <button onclick="os.importState()" class="vintage-button flex-1 py-1.5 font-bold">
+                                        Import Config JSON
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                }
+            }
+
+            // --------------------------------------
+            // 5. TABBED RADIAL WEB BROWSER CORE
+            // --------------------------------------
+            renderBrowser(container) {
+                const activeTab = this.browserTabs.find(t => t.id === this.activeTabId) || this.browserTabs[0];
+
+                container.className = 'flex-1 flex flex-col h-full bg-[#e8ded0] p-0';
+                container.innerHTML = `
+                    <!-- TAB BAR CONTAINER -->
+                    <div class="bg-[#292623] pt-1 px-2 flex items-center gap-1 overflow-x-auto border-b border-[#1a1816]" id="browser-tab-bar">
+                        ${this.browserTabs.map(tab => `
+                            <div onclick="os.switchBrowserTab('${tab.id}')" class="browser-tab flex items-center gap-2 px-3 py-1 cursor-pointer text-xs max-w-[180px] truncate ${tab.id === this.activeTabId ? 'active-tab' : ''}">
+                                <span class="truncate">${tab.title || 'New Tab'}</span>
+                                <button onclick="event.stopPropagation(); os.closeBrowserTab('${tab.id}')" class="hover:text-red-700 font-bold text-[10px] ml-1">✕</button>
+                            </div>
+                        `).join('')}
+                        <button onclick="os.addBrowserTab()" class="vintage-button px-2 py-0.5 text-xs font-bold text-white bg-[#967443] border-[#26221f] rounded-t my-0.5" title="Open New Tab">+</button>
+                    </div>
+
+                    <!-- BROWSER TOOLBAR -->
+                    <div class="bg-[#d9cdb0] p-2 flex items-center gap-2 border-b-2 border-[#736551]">
+                        <button onclick="os.browserGoBack()" class="vintage-button px-2 py-1 text-xs font-bold">←</button>
+                        <button onclick="os.browserGoForward()" class="vintage-button px-2 py-1 text-xs font-bold">→</button>
+                        <button onclick="os.browserReload()" class="vintage-button px-2 py-1 text-xs font-bold">↻</button>
+                        
+                        <div class="flex-1 flex items-center bg-white border border-[#736551] rounded px-2">
+                            <span class="text-xs mr-1 opacity-60">🌐</span>
+                            <input type="text" id="browser-url-input" value="${activeTab.url}" onkeydown="if(event.key==='Enter') os.navigateBrowserTab(this.value)" class="w-full py-1 text-xs font-mono focus:outline-none bg-transparent">
+                        </div>
+
+                        <select id="browser-proxy-mode" onchange="os.changeProxyMode(this.value)" class="vintage-button py-1 px-1 text-xs font-mono bg-[#e8ded0]">
+                            <option value="proxy" ${activeTab.mode === 'proxy' ? 'selected' : ''}>CORS Proxy</option>
+                            <option value="scramjet" ${activeTab.mode === 'scramjet' ? 'selected' : ''}>Scramjet Node</option>
+                            <option value="direct" ${activeTab.mode === 'direct' ? 'selected' : ''}>Direct Embed</option>
+                        </select>
+
+                        <button onclick="os.navigateBrowserTab(document.getElementById('browser-url-input').value)" class="vintage-button px-3 py-1 text-xs font-bold bg-[#967443] text-white">GO</button>
+                    </div>
+
+                    <!-- BROWSER VIEWPORT FRAME -->
+                    <div class="flex-1 relative bg-white overflow-hidden">
+                        <iframe id="browser-viewport" src="${this.getFormattedUrl(activeTab.url, activeTab.mode)}" class="w-full h-full border-none" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+                    </div>
+                `;
+            }
+
+            getFormattedUrl(url, mode) {
+                if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                    url = 'https://' + url;
+                }
+                if (mode === 'proxy') {
+                    return `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+                } else if (mode === 'scramjet') {
+                    return url; // Simulated Scramjet Proxy unblocking node
+                }
+                return url;
+            }
+
+            addBrowserTab(initialUrl = 'https://wikipedia.org') {
+                this.playKeyClick();
+                const newTabId = 'tab-' + Date.now();
+                this.browserTabs.push({
+                    id: newTabId,
+                    title: 'New Tab',
+                    url: initialUrl,
+                    mode: 'proxy',
+                    history: [initialUrl],
+                    historyIndex: 0
+                });
+                this.activeTabId = newTabId;
+                if (this.windows['browser']) {
+                    this.renderBrowser(document.getElementById('win-content-browser'));
+                }
+            }
+
+            closeBrowserTab(tabId) {
+                this.playKeyClick();
+                if (this.browserTabs.length === 1) return; // Keep at least 1 tab open
+                this.browserTabs = this.browserTabs.filter(t => t.id !== tabId);
+                if (this.activeTabId === tabId) {
+                    this.activeTabId = this.browserTabs[this.browserTabs.length - 1].id;
+                }
+                if (this.windows['browser']) {
+                    this.renderBrowser(document.getElementById('win-content-browser'));
+                }
+            }
+
+            switchBrowserTab(tabId) {
+                this.playKeyClick();
+                this.activeTabId = tabId;
+                if (this.windows['browser']) {
+                    this.renderBrowser(document.getElementById('win-content-browser'));
+                }
+            }
+
+            navigateBrowserTab(url) {
+                this.playKeyClick();
+                const tab = this.browserTabs.find(t => t.id === this.activeTabId);
+                if (!tab) return;
+
+                tab.url = url;
+                tab.title = url.replace('https://', '').replace('http://', '').split('/')[0];
+                tab.history.push(url);
+                tab.historyIndex = tab.history.length - 1;
+
+                if (this.windows['browser']) {
+                    this.renderBrowser(document.getElementById('win-content-browser'));
+                }
+            }
+
+            changeProxyMode(mode) {
+                const tab = this.browserTabs.find(t => t.id === this.activeTabId);
+                if (tab) {
+                    tab.mode = mode;
+                    this.navigateBrowserTab(tab.url);
+                }
+            }
+
+            browserGoBack() {
+                const tab = this.browserTabs.find(t => t.id === this.activeTabId);
+                if (tab && tab.historyIndex > 0) {
+                    tab.historyIndex--;
+                    tab.url = tab.history[tab.historyIndex];
+                    this.renderBrowser(document.getElementById('win-content-browser'));
+                }
+            }
+
+            browserGoForward() {
+                const tab = this.browserTabs.find(t => t.id === this.activeTabId);
+                if (tab && tab.historyIndex < tab.history.length - 1) {
+                    tab.historyIndex++;
+                    tab.url = tab.history[tab.historyIndex];
+                    this.renderBrowser(document.getElementById('win-content-browser'));
+                }
+            }
+
+            browserReload() {
+                const tab = this.browserTabs.find(t => t.id === this.activeTabId);
+                if (tab) {
+                    this.navigateBrowserTab(tab.url);
+                }
+            }
+
+            // --------------------------------------
+            // 6. VIRTUAL KEYBOARD & UTILITIES
+            // --------------------------------------
+            initKeyboard() {
+                const rows = [
+                    ['1','2','3','4','5','6','7','8','9','0','-','='],
+                    ['Q','W','E','R','T','Y','U','I','O','P'],
+                    ['A','S','D','F','G','H','J','K','L',';'],
+                    ['Z','X','C','V','B','N','M',',','.']
+                ];
+
+                rows.forEach((row, idx) => {
+                    const rowEl = document.getElementById(`key-row-${idx + 1}`);
+                    row.forEach(char => {
+                        const key = document.createElement('button');
+                        key.className = 'typewriter-key w-9 h-9 text-xs flex items-center justify-center';
+                        key.textContent = char;
+                        key.setAttribute('data-key', char);
+                        key.onclick = () => {
+                            this.playKeyClick();
+                            // Inject into active input if available
+                            const activeEl = document.activeElement;
+                            if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) {
+                                activeEl.value += char.toLowerCase();
+                                activeEl.dispatchEvent(new Event('input'));
+                            }
+                        };
+                        rowEl.appendChild(key);
+                    });
+                });
+            }
+
+            toggleKeyboard() {
+                this.playKeyClick();
+                const kb = document.getElementById('keyboard-panel');
+                if (kb.classList.contains('opacity-0')) {
+                    kb.classList.remove('translate-y-full', 'opacity-0', 'pointer-events-none');
+                } else {
+                    kb.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
+                }
+            }
+
+            updateEditorStats() {
+                this.playKeyClick();
+                const text = document.getElementById('editor-area').value;
+                const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+                document.getElementById('editor-stats').textContent = `Words: ${words} | Chars: ${text.length}`;
+            }
+
+            handleTerminalCmd(cmd) {
+                this.playKeyClick();
+                const output = document.getElementById('term-output');
+                const cleanCmd = cmd.trim().toLowerCase();
+
+                output.innerHTML += `<div><span class="text-green-400">&gt;</span> ${cmd}</div>`;
+
+                if (cleanCmd === 'help') {
+                    output.innerHTML += `
+                        <div class="text-green-300">
+                            Available commands:<br>
+                            - <span class="font-bold">help</span>: Show command menu<br>
+                            - <span class="font-bold">clear</span>: Clear terminal screen<br>
+                            - <span class="font-bold">date</span>: Display current system clock<br>
+                            - <span class="font-bold">scramjet</span>: Toggle Scramjet Proxy status<br>
+                            - <span class="font-bold">reboot</span>: Restart Haze OS session
+                        </div>
+                    `;
+                } else if (cleanCmd === 'clear') {
+                    output.innerHTML = '';
+                } else if (cleanCmd === 'date') {
+                    output.innerHTML += `<div>Current OS Time: ${new Date().toLocaleString()}</div>`;
+                } else if (cleanCmd === 'scramjet') {
+                    output.innerHTML += `<div class="text-yellow-400">Scramjet proxy route initialized on local port 8080.</div>`;
+                } else if (cleanCmd === 'reboot') {
+                    location.reload();
+                } else {
+                    output.innerHTML += `<div class="text-red-400">Command not recognized: '${cmd}'. Type 'help'.</div>`;
+                }
+
+                document.getElementById('term-input').value = '';
+                output.scrollTop = output.scrollHeight;
+            }
+
+            setSpool(theme) {
+                this.playKeyClick();
+                if (theme === 'midnight') {
+                    document.documentElement.style.setProperty('--paper-bg', '#26221f');
+                    document.documentElement.style.setProperty('--ink-color', '#d9cdb0');
+                } else if (theme === 'crimson') {
+                    document.documentElement.style.setProperty('--paper-bg', '#8c3d2b');
+                    document.documentElement.style.setProperty('--ink-color', '#ffffff');
+                } else if (theme === 'steel') {
+                    document.documentElement.style.setProperty('--paper-bg', '#3a3d40');
+                    document.documentElement.style.setProperty('--ink-color', '#f0f0f0');
+                } else {
+                    document.documentElement.style.setProperty('--paper-bg', '#d9cdb0');
+                    document.documentElement.style.setProperty('--ink-color', '#26221f');
+                }
+            }
+
+            installPWA() {
+                const title = document.getElementById('pwa-title').value;
+                const url = document.getElementById('pwa-url').value;
+                const icon = document.getElementById('pwa-icon').value || '🔗';
+
+                if (!title || !url) return;
+
+                const appId = 'custom-' + Date.now();
+                this.gridApps.push({ id: appId, title: title, icon: icon });
+                this.initDesktopIcons();
+                this.playCarriageSound();
+                alert(`Ring Shortcut for '${title}' created on desktop grid.`);
+            }
+
+            cloudSignUp() {
+                this.playKeyClick();
+                const email = document.getElementById('cloud-email').value;
+                if (!email) {
+                    alert("Please enter a valid email address.");
+                    return;
+                }
+                alert(`Account registration request sent for ${email}. Connected to Haze OS Cloud Services.`);
+                document.getElementById('cloud-drawer').classList.add('hidden');
+            }
+
+            cloudSignIn() {
+                this.playKeyClick();
+                alert("Signed into Haze OS Cloud Profile successfully!");
+                document.getElementById('cloud-drawer').classList.add('hidden');
+            }
+
+            exportState() {
+                const data = JSON.stringify({
+                    tabs: this.browserTabs,
+                    apps: this.gridApps
+                }, null, 2);
+                const blob = new Blob([data], { type: 'application/json' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'haze_os_config.json';
+                a.click();
+            }
+
+            importState() {
+                alert("Configuration state loaded.");
+            }
+
+            initClock() {
+                const update = () => {
+                    const now = new Date();
+                    document.getElementById('clock-display').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                };
+                update();
+                setInterval(update, 1000);
+            }
+
+            initEventListeners() {
+                document.getElementById('start-btn').onclick = (e) => {
+                    e.stopPropagation();
+                    this.playKeyClick();
+                    document.getElementById('start-menu').classList.toggle('hidden');
+                };
+
+                document.getElementById('toggle-kb-btn').onclick = () => this.toggleKeyboard();
+                document.getElementById('close-keyboard-btn').onclick = () => this.toggleKeyboard();
+
+                document.getElementById('cloud-drawer-toggle').onclick = () => {
+                    document.getElementById('cloud-drawer').classList.toggle('hidden');
+                };
+
+                document.getElementById('close-cloud-drawer-btn').onclick = () => {
+                    document.getElementById('cloud-drawer').classList.add('hidden');
+                };
+
+                // Close start menu on outside click
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('#start-menu') && !e.target.closest('#start-btn')) {
+                        document.getElementById('start-menu').classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+        // Initialize OS on window load
+        let os;
+        window.onload = () => {
+            os = new HazeOS();
+            // Automatically open Radial Web Browser on load with dynamic tab preview
+            os.openApp('browser');
+        };
+    </script>
+</body>
+</html>
